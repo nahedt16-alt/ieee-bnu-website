@@ -1,0 +1,201 @@
+/* ==========================================================================
+   GLOBAL — design tokens, base styles, layout helpers, buttons.
+   Theme: near-black engineering surfaces, one disciplined accent blue,
+   a blueprint/grid motif, monospace labels for structure. No gradients-as-
+   decoration, no pill shapes, no gloss — flat, sharp, technical.
+   ========================================================================== */
+
+:root {
+  /* ---- surfaces ---- */
+  --black: #07080c;        /* page background */
+  --panel: #0c0e15;        /* alternate section surface, one shade up from black */
+  --panel-2: #11141e;      /* card / tile surface */
+  --panel-3: #161a26;      /* hovered card surface */
+  --line: rgba(255, 255, 255, 0.09);     /* hairline borders */
+  --line-strong: rgba(255, 255, 255, 0.2);
+
+  /* ---- text ---- */
+  --text: #f3f5fb;
+  --text-muted: rgba(243, 245, 251, 0.68);
+  --text-faint: rgba(243, 245, 251, 0.42);
+
+  /* ---- accent: one signal blue, used with discipline ---- */
+  --accent: #3d7bff;
+  --accent-bright: #6b9cff;
+  --accent-dim: rgba(61, 123, 255, 0.12);
+  --accent-line: rgba(61, 123, 255, 0.4);
+  --on-accent: #04070f;    /* text/icon colour placed on top of solid accent fill */
+
+  /* ---- typography ---- */
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --fs-h2: clamp(2rem, 1rem + 3.2vw, 3.6rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+
+  /* ---- layout ---- */
+  --container: 1240px;
+  --gutter: 1.5rem;
+  --nav-h: 76px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ---- shared backdrops ---- */
+  --grid-lines:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0; min-height: 100vh;
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.65;
+  color: var(--text); background: var(--black);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { max-width: 100%; }
+img { display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 3px; border-radius: 4px; }
+
+html { scrollbar-color: #2a3042 var(--black); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: #2a3042; border-radius: 10px; }
+
+/* ---------- accessibility ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link {
+  position: fixed; top: 0.75rem; left: 0.75rem; z-index: 300; padding: 0.6rem 1rem; border-radius: var(--radius-sm);
+  background: var(--accent); color: #fff; font-weight: 600; transform: translateY(-200%); transition: transform 0.25s var(--ease);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ---------- layout ---------- */
+.container { width: min(var(--container), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.section { position: relative; padding-block: clamp(5rem, 10vw, 8rem); overflow-x: clip; color: var(--text); }
+
+/* Section surfaces: tonal shifts, not colour-block "frames" — the site reads as one
+   continuous dark system rather than alternating blocks of unrelated colour. */
+.section--white, .section--ice { background: var(--panel); }
+.section--blue {
+  background:
+    radial-gradient(900px 500px at 85% 0%, var(--accent-dim), transparent 60%),
+    var(--black);
+  border-block: 1px solid var(--line);
+}
+
+/* subtle blueprint grid used behind several sections */
+.grid-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: var(--grid-lines); background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 72%);
+}
+
+/* corner "viewfinder" brackets — a recurring technical/blueprint motif */
+.corner-frame { position: absolute; inset: clamp(1rem, 3vw, 2.5rem); z-index: 0; pointer-events: none; }
+.corner-frame i { position: absolute; width: 22px; height: 22px; border: 1.5px solid var(--line-strong); font-style: normal; }
+.corner-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.corner-frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.corner-frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.corner-frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* small monospace label used above every section heading, e.g. "02 — ABOUT" */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;
+  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+  color: var(--accent-bright); text-transform: uppercase;
+}
+.eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--accent); flex: none; }
+
+.section-heading { margin-bottom: 2rem; max-width: 46rem; }
+.section-heading--center { margin-inline: auto; text-align: center; }
+.section-heading--center .eyebrow { justify-content: center; }
+.section-heading h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.08; letter-spacing: -0.02em;
+  color: var(--text); text-wrap: balance;
+}
+.section-intro { margin-top: 1rem; font-size: 1.05rem; color: var(--text-muted); max-width: 38rem; }
+.section-heading--center .section-intro { margin-inline: auto; }
+
+/* ---------- buttons ---------- */
+.btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  padding: 0.9rem 1.5rem; border: 1px solid transparent; border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; line-height: 1.2; cursor: pointer; white-space: nowrap;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-lg { padding: 1.05rem 1.9rem; font-size: 1rem; }
+.btn-sm { padding: 0.6rem 1.05rem; font-size: 0.86rem; }
+
+.btn-glow {
+  color: #fff; background: var(--accent); border-color: var(--accent);
+  box-shadow: 0 0 0 0 rgba(61, 123, 255, 0);
+}
+.btn-glow:hover { background: var(--accent-bright); box-shadow: 0 0 0 4px var(--accent-dim); transform: translateY(-1px); }
+
+.btn-white { color: var(--on-accent); background: #fff; border-color: #fff; }
+.btn-white:hover { background: #dfe6f5; transform: translateY(-1px); box-shadow: 0 10px 24px -10px rgba(0,0,0,0.6); }
+
+.btn-ghost { color: var(--text); background: transparent; border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--accent-line); background: var(--accent-dim); }
+
+.btn-outline { color: var(--accent-bright); background: transparent; border-color: var(--accent-line); }
+.btn-outline:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
+
+/* hint shown while the join link is still the placeholder */
+.join-wrap { position: relative; display: inline-block; }
+.join-hint {
+  position: absolute; top: calc(100% + 0.9rem); left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0.6rem; align-items: flex-start; width: max-content; max-width: min(340px, 84vw);
+  padding: 0.85rem 1.05rem; border-radius: var(--radius-md); font-size: 0.85rem; line-height: 1.45; text-align: left;
+  color: var(--text); background: var(--panel-3); border: 1px solid var(--line-strong);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.5); z-index: 5; animation: fade-in 0.3s ease both;
+}
+.join-hint svg { flex: none; margin-top: 2px; color: var(--accent-bright); }
+
+/* ---------- logo ---------- */
+.logo { display: inline-flex; align-items: center; gap: 0.7rem; }
+.logo-img { object-fit: contain; }
+.logo-placeholder {
+  display: inline-grid; place-items: center; flex: none; border-radius: var(--radius-sm);
+  border: 1px dashed var(--line-strong); background: var(--panel-2); color: var(--accent-bright);
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-text strong { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--text); }
+.logo-text small { margin-top: 3px; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.08em; color: var(--text-faint); text-transform: uppercase; }
+
+/* ---------- badge / tag ---------- */
+.badge {
+  display: inline-flex; align-items: center; align-self: flex-start; gap: 0.4rem; padding: 0.3rem 0.7rem;
+  border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--accent-bright); background: var(--accent-dim); border: 1px solid var(--accent-line);
+}
+
+/* ---------- spotlight (soft light follows cursor) ---------- */
+.spotlight-card { position: relative; overflow: hidden; }
+.spotlight-card::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.35s ease;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), var(--accent-dim), transparent 62%);
+}
+.spotlight-card:hover::before { opacity: 1; }
+.spotlight-card > * { position: relative; z-index: 1; }
+
+/* ---------- small square icon tile (replaces the old glossy orb) ---------- */
+.icon-tile {
+  display: inline-grid; place-items: center; flex: none; border-radius: var(--radius-sm);
+  color: var(--accent-bright); background: var(--panel-2); border: 1px solid var(--line);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, transform 0.4s var(--ease);
+}

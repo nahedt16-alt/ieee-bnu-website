@@ -1,0 +1,52 @@
+/* ==========================================================================
+   ABOUT (panel surface) — heading + story on the left, editorial list on
+   the right. The old sphere cluster is replaced by a technical readout panel.
+   ========================================================================== */
+.about__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: start; }
+.about__lead { position: sticky; top: calc(var(--nav-h) + 2rem); }
+.about__lead .section-heading { margin-bottom: 1.6rem; }
+.about__lead p { color: var(--text-muted); max-width: 34rem; }
+.about__lead p + p { margin-top: 1rem; }
+.about__lead .lead { font-size: var(--fs-lead); line-height: 1.55; color: var(--text); }
+
+.about__subtitle { margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; color: var(--accent-bright); text-transform: uppercase; }
+.topics { border-top: 1px solid var(--line); }
+.topic { display: flex; align-items: center; gap: 1.4rem; padding: 1.5rem 0.25rem; border-bottom: 1px solid var(--line); transition: padding 0.4s var(--ease); }
+.topic:hover { padding-left: 1rem; }
+.topic__icon { width: 54px; height: 54px; }
+.topic:hover .topic__icon { border-color: var(--accent-line); color: #fff; background: var(--accent); transform: rotate(-6deg); }
+.topic h4 { font-family: var(--font-display); font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
+.topic p { margin-top: 0.3rem; color: var(--text-muted); font-size: 0.95rem; }
+
+/* ---- technical readout panel (replaces the old orb cluster) ---- */
+.tech-panel {
+  position: relative; isolation: isolate; overflow: hidden; margin-top: 2.5rem; padding: 1.75rem;
+  width: min(360px, 100%); aspect-ratio: 16 / 10; border-radius: var(--radius-lg); border: 1px solid var(--line);
+  background: var(--panel-2); display: flex; flex-direction: column; justify-content: space-between;
+}
+.tech-panel__nodes { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.9; }
+.tech-panel__pulse { animation: blink-dot 2.2s ease-in-out infinite; }
+.tech-panel__word {
+  position: relative; font-family: var(--font-display); font-weight: 700; font-size: 2.6rem; letter-spacing: -0.03em; color: var(--text); opacity: 0.92;
+}
+.tech-panel__status {
+  position: relative; display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text-faint); text-transform: uppercase;
+}
+.tech-panel__status i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright); animation: blink-dot 1.8s ease-in-out infinite; }
+
+@media (max-width: 900px) {
+  .about__grid { grid-template-columns: 1fr; }
+  .about__lead { position: static; }
+  .tech-panel { margin-inline: 0; }
+}
+@media (max-width: 480px) {
+  .topic { gap: 1rem; }
+  .topic__icon { width: 46px; height: 46px; }
+}
+
+/* ---- JOIN (single centered band) ---- */
+.join { padding-block: clamp(4.5rem, 9vw, 7.5rem); overflow: hidden; }
+.join__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.1rem; }
+.join__inner h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.2rem, 1rem + 4.6vw, 4.6rem); line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+.join__sub { font-size: var(--fs-lead); color: var(--text-muted); margin-bottom: 0.6rem; }
