@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IEEE BNU Student Branch Website
 
 A futuristic, interactive website for the IEEE BNU Student Branch, built with
@@ -131,3 +132,6 @@ src/
 
 Note: the IEEE BNU logo placeholder is **not** the official IEEE logo — replace it with your own
 branch logo when you have it.
+=======
+# ieee-bnu-website
+>>>>>>> d3925f6cecacbdd308a45560b040f68a1b35d94a
