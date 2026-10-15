@@ -8,7 +8,7 @@
    Replace the text between the quotes with your real link, e.g.
    "https://forms.gle/xxxxxxxx". Every "Join" button on the site uses this.
    -------------------------------------------------------------------------- */
-export const JOIN_FORM_URL = "ADD_YOUR_GOOGLE_FORM_LINK_HERE";
+export const JOIN_FORM_URL = "https://forms.gle/mSkPCJNxR6QVSmJx7";
 
 /** True once you have replaced the placeholder above with a real http(s) link. */
 export const isJoinFormConfigured = /^https?:\/\//i.test(JOIN_FORM_URL);
@@ -23,16 +23,16 @@ export const siteConfig = {
 
   // Path to your logo, e.g. "/assets/images/logo/ieee-bnu-logo.png"
   // (put the file in public/assets/images/logo/). Leave "" to show the placeholder.
-  logo: "",
+  logo: "/assets/images/logo/log.jpeg",
 
   // Contact email, e.g. "ieee.bnu@example.com". Leave "" to show a placeholder.
-  contactEmail: "",
+  contactEmail: "www.ieeebnu.com",
 
   // University info shown in the footer. Replace the [PLACEHOLDERS].
   university: {
-    name: "[UNIVERSITY NAME]",
-    faculty: "[FACULTY / DEPARTMENT]",
-    location: "[CITY, COUNTRY]",
+    name: "Benha National University",
+    faculty: "Engineering",
+    location: "Obour, Egypt",
   },
 
   /* ------------------------------------------------------------------------
@@ -42,7 +42,7 @@ export const siteConfig = {
      "facebook", "instagram", "linkedin", "github", "website".
      ------------------------------------------------------------------------ */
   socialLinks: [
-    { id: "facebook", label: "Facebook", url: "" },
+    { id: "facebook", label: "Facebook", url: "https://www.facebook.com/people/IEEE-BNU-Student-Branch/61590744703356/" },
     { id: "instagram", label: "Instagram", url: "" },
     { id: "linkedin", label: "LinkedIn", url: "" },
     { id: "github", label: "GitHub", url: "" },

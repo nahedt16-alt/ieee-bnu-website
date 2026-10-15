@@ -1,4 +1,4 @@
-import { CircuitBoard, Code, Sparkles } from 'lucide-react';
+import { CircuitBoard, Layers, Terminal } from 'lucide-react';
 
 /* Small illustration of a generic microcontroller board (not an official logo). */
 function ArduinoVisual() {
@@ -364,7 +364,7 @@ function ElectronicsVisual() {
 
 function GenericVisual({ category }) {
   const key = (category || '').toLowerCase();
-  const Icon = key.includes('hard') ? CircuitBoard : key.includes('soft') ? Code : Sparkles;
+  const Icon = key.includes('hard') ? CircuitBoard : key.includes('soft') ? Terminal : Layers;
   return (
     <div className="ws-generic" aria-hidden="true">
       <span className="ws-generic__ring ws-generic__ring--a" />

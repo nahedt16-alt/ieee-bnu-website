@@ -1,4 +1,4 @@
-import { GraduationCap, User } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import SectionHeading from './common/SectionHeading';
 import SafeImage from './common/SafeImage';
 import SocialIcon from './common/SocialIcon';
@@ -16,11 +16,15 @@ const LINK_LABELS = {
 const toHref = (key, value) =>
   key === 'email' && !value.startsWith('mailto:') ? `mailto:${value}` : value;
 
-/* Placeholder shown until a photo is added. */
+/* Technical avatar placeholder with targeting crosshair and engineer silhouette */
 function PhotoPlaceholder() {
   return (
     <span className="pc__placeholder" aria-hidden="true">
-      <User strokeWidth={1.2} />
+      <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="8" r="4.2" />
+        <path d="M4 21v-1.8a6.5 6.5 0 0 1 13 0V21" />
+        <circle cx="12" cy="12" r="10.5" strokeDasharray="3.5 3.5" opacity="0.3" />
+      </svg>
     </span>
   );
 }
@@ -60,7 +64,7 @@ function ProfileCard({ person, size }) {
 
         <div className="pc__body">
           <span className="pc__position">
-            {isFaculty && <GraduationCap size={15} aria-hidden="true" />}
+            {isFaculty && <ShieldCheck size={14} aria-hidden="true" />}
             {person.position}
           </span>
           <h3 className="pc__name">{person.name}</h3>
@@ -107,13 +111,10 @@ export default function HighBoard() {
         <div className="board-stage">
           <span className="board-spine" aria-hidden="true" />
 
-          <div className="board-tier board-tier--chairman">
+          <div className="board-tier board-tier--top">
             {tier('chairman').map((p) => (
               <ProfileCard key={p.id} person={p} size="xl" />
             ))}
-          </div>
-
-          <div className="board-tier board-tier--vice">
             {tier('vice').map((p) => (
               <ProfileCard key={p.id} person={p} size="lg" />
             ))}

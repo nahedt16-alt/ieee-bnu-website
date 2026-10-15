@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpRight, Clock, Plus, X } from 'lucide-react';
+import { ArrowUpRight, Layers, Timer, X } from 'lucide-react';
 import SectionHeading from './common/SectionHeading';
 import SafeImage from './common/SafeImage';
 import WorkshopVisual from './WorkshopVisual';
@@ -94,7 +94,7 @@ function WorkshopModal({ workshop, onClose }) {
             workshop.details.map((para, i) => <p key={i}>{para}</p>)
           ) : (
             <p className="modal__soon">
-              <Clock size={18} aria-hidden="true" />
+              <Timer size={18} aria-hidden="true" />
               Workshop details coming soon.
             </p>
           )}
@@ -179,7 +179,7 @@ export default function Workshops() {
 
           {showComingSoonCard && filter === 'All' && (
             <div className="ws-row ws-row--soon">
-              <Plus size={28} strokeWidth={1.5} aria-hidden="true" />
+              <Layers size={26} strokeWidth={1.5} aria-hidden="true" />
               <div>
                 <h3>More workshops coming soon</h3>
                 <p>New sessions will appear here as soon as they are announced.</p>

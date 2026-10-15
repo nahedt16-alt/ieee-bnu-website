@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, Info } from 'lucide-react';
+import { ArrowUpRight, Terminal } from 'lucide-react';
 import { JOIN_FORM_URL, isJoinFormConfigured } from '../data/siteConfig';
 
 /**
@@ -37,7 +37,7 @@ export default function JoinButton({
       </button>
       {hint && (
         <span className="join-hint" role="status">
-          <Info size={16} aria-hidden="true" />
+          <Terminal size={15} aria-hidden="true" />
           The registration link hasn't been added yet. Set JOIN_FORM_URL in src/data/siteConfig.js.
         </span>
       )}

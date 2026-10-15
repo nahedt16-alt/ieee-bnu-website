@@ -1,6 +1,6 @@
 import { Component, Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, RotateCcw } from 'lucide-react';
+import { ChevronDown, RefreshCw } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 import { handleAnchorClick } from '../utils/scroll';
@@ -152,7 +152,7 @@ export default function Hero3D() {
         <motion.div variants={rise}>
           <a href="#about" className="btn btn-white btn-lg" onClick={handleAnchorClick('about')}>
             <span>Explore IEEE BNU</span>
-            <ArrowDown size={18} aria-hidden="true" />
+            <ChevronDown size={18} aria-hidden="true" />
           </a>
         </motion.div>
       </motion.div>
@@ -173,7 +173,7 @@ export default function Hero3D() {
       </motion.a>
 
       <button type="button" className="hero-replay" onClick={replay} aria-label="Replay the letter drop animation">
-        <RotateCcw size={15} aria-hidden="true" />
+        <RefreshCw size={14} aria-hidden="true" />
         <span>Replay animation</span>
       </button>
     </section>

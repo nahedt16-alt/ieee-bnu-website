@@ -31,7 +31,7 @@ export const highBoard = [
     position: "Chairman",
     name: "Mahmoud Mohamed",
     image: "/assets/images/board/mohamed.jpeg",
-    links: { ...noLinks },
+    links: { ...noLinks, linkedin: "https://www.linkedin.com/in/mahmoudabdeltwab?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
   },
   {
     id: "vice-chairman",
@@ -39,7 +39,7 @@ export const highBoard = [
     position: "Vice Chairman",
     name: "Mahmoud Ahmed",
     image: "/assets/images/board/mahmoud.jpeg",
-    links: { ...noLinks },
+    links: { ...noLinks, linkedin: "https://www.linkedin.com/in/mahmoud-emara-258818410?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
   },
   {
     id: "secretary",
@@ -55,7 +55,7 @@ export const highBoard = [
     position: "Webmaster",
     name: "Nahed Tamer",
     image: "/assets/images/board/nahed.jpeg",
-    links: { ...noLinks },
+    links: { ...noLinks, linkedin: "https://www.linkedin.com/in/nahed-tamer-57549a179?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
   },
   {
     id: "treasurer",
@@ -63,7 +63,7 @@ export const highBoard = [
     position: "Treasurer",
     name: "Amr Wasseim",
     image: "/assets/images/board/amr.jpeg",
-    links: { ...noLinks },
+    links: { ...noLinks, linkedin: "https://www.linkedin.com/in/amrwasim-helal-20441b368" },
   },
   {
     id: "supervisor",
@@ -76,7 +76,7 @@ export const highBoard = [
   {
     id: "mentor",
     tier: "faculty",
-    position: "Mentor",
+    position: "Supervisor",
     name: "Dr. Dina El-Naggar",
     image: "/assets/images/board/dr_dina_hosny_el_nagar.jpeg",
     links: { ...noLinks },

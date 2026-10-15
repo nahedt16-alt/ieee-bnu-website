@@ -1,31 +1,31 @@
 import { motion } from 'framer-motion';
-import { BookOpen, Compass, Network, Users, Wrench } from 'lucide-react';
+import { CircuitBoard, GitFork, Layers, Terminal, Waypoints } from 'lucide-react';
 import SectionHeading from './common/SectionHeading';
 
 /* What students can do at IEEE BNU — edit the text here. */
 const topics = [
   {
-    icon: BookOpen,
+    icon: Terminal,
     title: 'Learn new technical skills',
     text: 'Build practical skills that go beyond the classroom, one step at a time.',
   },
   {
-    icon: Compass,
+    icon: Layers,
     title: 'Explore different engineering fields',
     text: 'From software to electronics and beyond — find the field that excites you.',
   },
   {
-    icon: Wrench,
+    icon: CircuitBoard,
     title: 'Attend workshops and technical sessions',
     text: 'Get hands-on with tools and ideas in sessions led by the community.',
   },
   {
-    icon: Users,
+    icon: GitFork,
     title: 'Collaborate on projects',
     text: 'Team up, share ideas and turn them into working projects together.',
   },
   {
-    icon: Network,
+    icon: Waypoints,
     title: 'Connect with students and mentors',
     text: 'Meet peers who share your curiosity and mentors who can guide you.',
   },

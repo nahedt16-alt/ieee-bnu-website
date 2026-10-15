@@ -46,15 +46,18 @@ function computeLayout(width, height, totalWidth) {
    A quiet accent-blue glow pool and two thin platform rings — just enough to
    ground the letters on the near-black stage without competing with them. */
 function Ground({ layout, totalWidth }) {
+  const accentColor = '#f77f00';
+  const brightColor = '#fcbf49';
+
   return (
     <group position={[layout.x, layout.lift, 0]}>
       {[0.9, 0.62, 0.36].map((scale, i) => (
         <mesh key={i} rotation-x={-Math.PI / 2} position={[0, -0.01, 0]}>
           <circleGeometry args={[totalWidth * scale, 64]} />
           <meshBasicMaterial
-            color="#2f6bff"
+            color={accentColor}
             transparent
-            opacity={0.05 + i * 0.015}
+            opacity={0.06 + i * 0.02}
             blending={THREE.AdditiveBlending}
             depthWrite={false}
             toneMapped={false}
@@ -63,7 +66,7 @@ function Ground({ layout, totalWidth }) {
       ))}
       <mesh rotation-x={-Math.PI / 2} position={[0, -0.005, 0]}>
         <ringGeometry args={[totalWidth * 0.78, totalWidth * 0.783, 96]} />
-        <meshBasicMaterial color="#6b9cff" transparent opacity={0.3} toneMapped={false} depthWrite={false} />
+        <meshBasicMaterial color={brightColor} transparent opacity={0.35} toneMapped={false} depthWrite={false} />
       </mesh>
       <ContactShadows
         position={[0, 0.005, 0]}

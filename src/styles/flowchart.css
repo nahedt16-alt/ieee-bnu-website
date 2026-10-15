@@ -1,62 +1,137 @@
 /* ==========================================================================
-   TECHNICAL TEAM — a dark "circuit board" panel with glowing accent traces.
-   This is the section the new theme suits best: it already looked like
-   engineering, now it reads like it too.
+   TECHNICAL TEAM — slider edition.
+   Keeps the fc-frame / fc-board glass-panel look; adds ts-* slider classes.
    ========================================================================== */
+
+/* ---- section wrapper ---- */
 .technical__top { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
 .technical__top .section-heading { margin-bottom: 0; }
 
+/* ---- outer glass board (re-used from old design) ---- */
 .fc-board {
   position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-lg);
-  padding: clamp(1.25rem, 4vw, 3.5rem); background: var(--black); border: 1px solid var(--line);
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3.5rem) clamp(2.5rem, 5vw, 3.5rem);
+  background: var(--black); border: 1px solid var(--line);
 }
 .fc-board::before {
   content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background-image: var(--grid-lines); background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 20%, transparent 78%); mask-image: radial-gradient(ellipse at 50% 35%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 35%, #000 20%, transparent 78%);
 }
 
-.fc { position: relative; display: flex; flex-direction: column; padding-bottom: 0.5rem; }
-.fc-lines { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.fc-line-track { fill: none; stroke: var(--line-strong); stroke-width: 3.5; stroke-linecap: round; }
-.fc-line { fill: none; stroke: var(--accent-bright); stroke-width: 2; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(107, 156, 255, 0.7)); }
-.fc-via { fill: var(--black); stroke: var(--accent-bright); stroke-width: 2; }
-.fc-pulse { fill: #fff; filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 10px var(--accent)); }
+/* ---- slider viewport ---- */
+.ts-shell { display: flex; flex-direction: column; align-items: center; }
 
-.fc-root { position: relative; z-index: 1; display: flex; justify-content: center; }
-
-/* ---- node ---- */
-.fc-node { position: relative; width: 100%; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius-md); transition: border-color 0.3s ease, transform 0.3s var(--ease); }
-.fc-node--root { max-width: 440px; }
-.fc-node:hover { transform: translateY(-2px); border-color: var(--accent-line); }
-.fc-node.is-open { border-color: var(--accent-line); box-shadow: 0 0 0 1px var(--accent-line); }
-.fc-node--root.is-idle { animation: pulse-ring 2.6s ease-out infinite; }
-.fc-node--root.is-idle:hover { animation: none; }
-
-.fc-node__head { display: flex; align-items: center; gap: 0.95rem; width: 100%; padding: 1rem 1.15rem; text-align: left; cursor: pointer; background: none; border: 0; border-radius: inherit; }
-.fc-node__icon { width: 46px; height: 46px; }
-.fc-node:hover .fc-node__icon { border-color: var(--accent-line); color: var(--accent-bright); }
-.fc-node__title { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.fc-node__label { font-family: var(--font-mono); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.06em; color: var(--text); }
-.fc-node--root .fc-node__label { font-size: 1.05rem; }
-.fc-node__hint { font-size: 0.78rem; font-weight: 400; color: var(--text-faint); margin-top: 1px; }
-.fc-node__chevron { flex: none; color: var(--accent-bright); transition: transform 0.4s var(--ease); }
-.fc-node.is-open .fc-node__chevron { transform: rotate(180deg); }
-
-.fc-node__panel { overflow: hidden; }
-.fc-node__panel-inner { margin: 0 1.15rem; padding: 1rem 0 1.2rem; border-top: 1px dashed var(--line-strong); }
-.fc-node__desc { margin-bottom: 0.9rem; font-size: 0.92rem; color: var(--text-muted); }
-
-.fc-node__preview-avatar {
-  display: grid; place-items: center; width: 30px; height: 30px; flex: none;
-  border-radius: 50%; overflow: hidden; background: var(--panel-3);
-  border: 1px solid var(--accent-line); color: var(--accent-bright);
-  margin-left: auto; margin-right: 0.35rem; transition: transform 0.25s ease, border-color 0.25s ease;
+.ts-counter {
+  display: flex; align-items: baseline; gap: 0.3rem; align-self: flex-end;
+  margin-bottom: 1.25rem; font-family: var(--font-mono); font-size: 0.8rem;
 }
-.fc-node:hover .fc-node__preview-avatar { transform: scale(1.08); border-color: var(--accent-bright); }
-.fc-node__preview-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ts-counter__cur { font-size: 1.3rem; font-weight: 700; color: var(--accent-bright); }
+.ts-counter__sep { color: var(--text-faint); }
+.ts-counter__total { color: var(--text-faint); }
 
-/* ---- High-tech photo frame for leads ---- */
+/* ---- Peek viewport ---- */
+/* Shows the active card centred (80% width) + a ghost strip of the next/prev */
+.ts-peek-wrap {
+  position: relative; width: 100%;
+  /* clip so only the peek strip bleeds out, not fully off-screen */
+  overflow: hidden;
+  padding: 0 0 0.5rem;
+  cursor: grab;
+  user-select: none;
+}
+.ts-peek-wrap:active { cursor: grabbing; }
+
+/* Active slide: centred, 82% of the container width */
+.ts-slide {
+  display: flex; justify-content: center;
+  width: 82%; margin: 0 auto;
+  will-change: transform;
+}
+
+/* Ghost peek cards — absolutely placed off to the side, partially clipped */
+.ts-peek {
+  position: absolute; top: 0; width: 82%;
+  pointer-events: none; opacity: 0.42; filter: blur(1.5px) brightness(0.7);
+  transform: scale(0.96);
+  transition: opacity 0.3s ease;
+}
+.ts-peek--right { left: calc(82% + 1rem); }
+.ts-peek--left  { right: calc(82% + 1rem); }
+
+/* ---- slide card ---- */
+.ts-card {
+  position: relative; width: min(420px, 100%); border-radius: var(--radius-md);
+  background: var(--panel-2); border: 1px solid var(--line);
+  overflow: hidden; transition: border-color 0.3s ease;
+  padding: 0 0 1.5rem;
+}
+.ts-card--root { border-top: 2px solid var(--accent); }
+.ts-card--branch { border-top: 2px solid var(--accent-line); }
+
+.ts-card__bar {
+  display: block; height: 3px; width: 100%; position: absolute; top: 0; left: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright), var(--accent));
+  background-size: 200% 100%; animation: bar-slide 3s linear infinite;
+}
+.ts-card--branch .ts-card__bar {
+  background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  animation: none;
+}
+
+.ts-card__head {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+.ts-card__icon-tile {
+  display: grid; place-items: center; width: 52px; height: 52px; flex: none;
+  border-radius: var(--radius-sm); background: var(--panel); border: 1px solid var(--accent-line);
+  color: var(--accent-bright);
+}
+.ts-card--root .ts-card__icon-tile { border-color: var(--accent); color: var(--accent); }
+
+.ts-card__labels { display: flex; flex-direction: column; gap: 0.25rem; }
+.ts-card__label {
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.05rem;
+  letter-spacing: 0.07em; color: var(--text);
+}
+.ts-card--root .ts-card__label { color: var(--accent-bright); font-size: 1.15rem; }
+.ts-card__desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.45; }
+
+/* photo frame lives inside the card */
+.ts-card .fc-frame { margin: 0 1.25rem; }
+
+/* ---- arrow buttons ---- */
+.ts-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 50%; background: var(--panel-2); border: 1px solid var(--line-strong);
+  color: var(--accent-bright); cursor: pointer; transition: all 0.25s ease; z-index: 2;
+}
+.ts-arrow:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-50%) scale(1.08); }
+.ts-arrow:disabled { opacity: 0.25; cursor: default; }
+.ts-arrow--prev { left: 0.75rem; }
+.ts-arrow--next { right: 0.75rem; }
+
+/* ---- dots ---- */
+.ts-dots {
+  display: flex; gap: 0.5rem; margin-top: 1.5rem;
+  justify-content: center;
+}
+.ts-dot {
+  width: 28px; height: 5px; border-radius: 999px;
+  border: none; cursor: pointer; padding: 0;
+  background: var(--line-strong); transition: all 0.3s var(--ease);
+}
+.ts-dot.is-active {
+  background: var(--accent-bright); width: 48px;
+  box-shadow: 0 0 8px var(--accent-bright);
+}
+
+/* ============================================================
+   HIGH-TECH PHOTO FRAME  (shared between old + new)
+   ============================================================ */
 .fc-frame {
   position: relative; display: flex; flex-direction: column; align-items: center;
   padding: 1rem 1.25rem 1.15rem; margin-top: 0.25rem;
@@ -119,15 +194,22 @@
   font-family: var(--font-display); font-size: 1.12rem; font-weight: 600;
   line-height: 1.25; color: var(--text); overflow-wrap: anywhere;
 }
+.fc-frame__linkedin {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.28rem 0.7rem; border-radius: 4px; margin-top: 0.35rem;
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; text-decoration: none;
+  color: #fff; background: #0a66c2; border: 1px solid #0a66c2;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.fc-frame__linkedin:hover { background: #004182; transform: translateY(-1px); }
 
-/* ---- branches ---- */
-.fc-branches-wrap { position: relative; z-index: 1; overflow: hidden; padding: 84px 14px 26px; margin: 0 -14px -26px; }
-.fc-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 4rem; align-items: start; max-width: 880px; margin-inline: auto; }
-
-/* phone layout: one column with a "bus" line on the left */
-.fc--stacked .fc-node--root { max-width: none; }
-.fc--stacked .fc-branches-wrap { padding-top: 48px; }
-.fc--stacked .fc-branches { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-left: 44px; }
-.fc--stacked .fc-node__head { padding: 0.9rem; gap: 0.75rem; }
-.fc--stacked .fc-node__label { font-size: 0.9rem; }
-.fc--stacked .fc-node__panel-inner { margin-inline: 0.9rem; }
+/* ---- animations (shared) ---- */
+@keyframes bar-slide { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes scan-y { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+@keyframes blink-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--accent-line); }
+  60% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}

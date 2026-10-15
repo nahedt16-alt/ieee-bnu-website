@@ -17,7 +17,8 @@ export const technicalTeam = {
     lead: {
       role: "Technical Lead",
       name: "Khattab Walid",
-      image: "/assets/images/team/khattab.jpg",
+      image: "/assets/images/team/khattab.jpeg",
+      linkedin: "https://www.linkedin.com/in/khattab-walid-591989288?utm_source=share_via&utm_content=profile&utm_medium=member_ios", // e.g. "https://www.linkedin.com/in/khattab-walid"
     },
   },
 
@@ -31,7 +32,8 @@ export const technicalTeam = {
       head: {
         role: "Software Head",
         name: "Moataz Fawzy",
-        image: "/assets/images/team/moataz.jpg",
+        image: "/assets/images/team/moataz.jpeg",
+        linkedin: "https://www.linkedin.com/in/moataz-mohamed-8bb223314?utm_source=share_via&utm_content=profile&utm_medium=member_android", // e.g. "https://www.linkedin.com/in/moataz-fawzy"
       },
     },
     {
@@ -42,7 +44,8 @@ export const technicalTeam = {
       head: {
         role: "Hardware Head",
         name: "Abdelrahman Nayef",
-        image: "/assets/images/team/nayef.jpg",
+        image: "/assets/images/team/nayef.jpeg",
+        linkedin: "https://www.linkedin.com/in/abdelrahman-nayef-25500a282?utm_source=share_via&utm_content=profile&utm_medium=member_ios", // e.g. "https://www.linkedin.com/in/abdelrahman-nayef"
       },
     },
   ],

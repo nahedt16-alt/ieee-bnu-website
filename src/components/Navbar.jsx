@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
 import Logo from './common/Logo';
 import { navLinks } from '../data/siteConfig';
 import { useActiveSection } from '../hooks/useActiveSection';
@@ -11,6 +10,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const active = useActiveSection(ids);
+
+  useEffect(() => {
+    document.documentElement.removeAttribute('data-theme');
+    try {
+      localStorage.removeItem('ieee_theme');
+    } catch {
+      // ignore
+    }
+  }, []);
 
   // Transparent over the hero → blurred glass once you scroll.
   useEffect(() => {
